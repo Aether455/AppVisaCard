@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appvisacard.model.CardModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class HomeActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     List<CardModel> cardList;
     List<String> displayList;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
         for (CardModel c : cardList) {
             displayList.add("Chủ thẻ: " + c.getCardHolder()
                     + "\nSố thẻ: " + c.getCardNumber()
-                    + "\nHSD: " + c.getExpireDate());
+                    + "\nHSD: " + dateFormat.format(c.getExpireDate()));
         }
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayList);
         cardListView.setAdapter(adapter);
