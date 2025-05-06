@@ -1,38 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- activity_login.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center">
+    android:background="#F1E5FF">
 
-    <EditText
-        android:id="@+id/emailInput"
-        android:layout_width="match_parent"
+    <!-- Guidelines for vertical centering -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+        app:layout_constraintGuide_percent="0.25" />
 
-    <EditText
-        android:id="@+id/passwordInput"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Mật khẩu"
-        android:inputType="textPassword" />
+        app:layout_constraintGuide_percent="0.75" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="match_parent"
+    <!-- Form Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/formContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Đăng nhập"
-        android:layout_marginTop="16dp" />
+        android:padding="24dp"
+        app:layout_constraintTop_toTopOf="@id/guidelineTop"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp">
 
-    <Button
-        android:id="@+id/goToRegisterBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chưa có tài khoản? Đăng ký"
-        android:layout_marginTop="8dp" />
+        <!-- Logo VISA -->
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logo_visa"
+            android:contentDescription="Logo Visa"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textVI" />
 
-</LinearLayout>
+        <!-- Chữ VI -->
+        <TextView
+            android:id="@+id/textVI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VI"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#3D2074"
+            app:layout_constraintTop_toTopOf="@id/logoImage"
+            app:layout_constraintBottom_toBottomOf="@id/logoImage"
+            app:layout_constraintStart_toEndOf="@id/logoImage"
+            app:layout_constraintEnd_toStartOf="@id/logoVN"
+            android:layout_marginStart="200dp"
+            android:layout_marginEnd="4dp" />
+
+        <!-- Logo Việt Nam -->
+        <ImageView
+            android:id="@+id/logoVN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/img"
+            android:contentDescription="Logo Việt Nam"
+            app:layout_constraintTop_toTopOf="@id/logoImage"
+            app:layout_constraintBottom_toBottomOf="@id/logoImage"
+            app:layout_constraintStart_toEndOf="@id/textVI"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Greeting -->
+        <TextView
+            android:id="@+id/greetingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ViSa xin chào Bạn!\n💜🧡💜"
+            android:textSize="16sp"
+            android:textColor="#3D2074"
+            android:lineSpacingExtra="8dp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/logoImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp" />
+
+
+        <!-- Username -->
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="Tên đăng nhập"
+            android:background="@drawable/input_background"
+            android:paddingHorizontal="16dp"
+            android:textColorHint="#AA80BD"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/greetingText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="70dp" /> <!-- Tăng khoảng cách với greeting -->
+
+        <!-- Password -->
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="Mật khẩu"
+            android:background="@drawable/input_background"
+            android:paddingHorizontal="16dp"
+            android:textColorHint="#AA80BD"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/usernameEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp" /> <!-- Tăng khoảng cách với username -->
+
+        <!-- Forgot Password -->
+        <TextView
+            android:id="@+id/forgotPasswordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không đăng nhập được?"
+            android:textColor="#E88A33"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="18dp" /> <!-- Tăng khoảng cách với mật khẩu -->
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="Đăng nhập"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#7B45CE"
+            app:layout_constraintTop_toBottomOf="@id/forgotPasswordText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp" /> <!-- Tăng khoảng cách với phần trên -->
+
+        <!-- Register Button -->
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="Mở tài khoản online"
+            android:textAllCaps="false"
+            android:textColor="#7B45CE"
+            android:backgroundTint="#E6DFFC"
+            app:layout_constraintTop_toBottomOf="@id/loginButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp" /> <!-- Tăng khoảng cách với nút đăng nhập -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

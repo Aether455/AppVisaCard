@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="24dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1E5FF"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
 
+    <!-- Nội dung hướng dẫn -->
     <TextView
         android:id="@+id/statusText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hãy quét thẻ vào mặt lưng điện thoại"
-        android:textSize="18sp"
-        android:paddingBottom="16dp"/>
+        android:textSize="20sp"
+        android:textColor="#3D2074"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="24dp" />
 
+    <!-- Nút quay lại -->
     <Button
         android:id="@+id/backButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="Quay lại"
-        android:backgroundTint="@android:color/holo_blue_light"
-        android:textColor="@android:color/white"/>
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#7B45CE"
+        android:elevation="4dp"
+        android:background="@drawable/rounded_button_purple" />
 </LinearLayout>
