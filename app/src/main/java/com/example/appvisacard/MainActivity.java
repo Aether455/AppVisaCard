@@ -2,6 +2,7 @@ package com.example.appvisacard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,36 +10,59 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    EditText emailInput, passwordInput;
-    Button loginBtn, goToRegisterBtn;
-    UserDatabaseHelper dbHelper;
+
+    private EditText usernameInput, passwordInput;
+    private Button loginBtn, goToRegisterBtn;
+    private UserDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initViews();
+        setupListeners();
+    }
+
+    private void initViews() {
         dbHelper = new UserDatabaseHelper(this);
-        emailInput = findViewById(R.id.emailInput);
-        passwordInput = findViewById(R.id.passwordInput);
-        loginBtn = findViewById(R.id.loginBtn);
-        goToRegisterBtn = findViewById(R.id.goToRegisterBtn);
+        usernameInput = findViewById(R.id.usernameEditText);
+        passwordInput = findViewById(R.id.passwordEditText);
+        loginBtn = findViewById(R.id.loginButton);
+        goToRegisterBtn = findViewById(R.id.registerButton);
+    }
 
-        loginBtn.setOnClickListener(view -> {
-            String email = emailInput.getText().toString().trim();
-            String password = passwordInput.getText().toString().trim();
+    private void setupListeners() {
+        loginBtn.setOnClickListener(view -> attemptLogin());
+        goToRegisterBtn.setOnClickListener(view ->
+                startActivity(new Intent(this, RegisterActivity.class))
+        );
+    }
 
-            if (dbHelper.checkLogin(email, password)) {
-                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, HomeActivity.class));
-                finish();
-            } else {
-                Toast.makeText(this, "Sai thông tin đăng nhập!", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void attemptLogin() {
+        String username = usernameInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
 
-        goToRegisterBtn.setOnClickListener(view -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
+        if (TextUtils.isEmpty(username)) {
+            showToast("Vui lòng nhập tên đăng nhập");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            showToast("Vui lòng nhập mật khẩu");
+            return;
+        }
+
+        if (dbHelper.checkLogin(username, password)) {
+            showToast("Đăng nhập thành công!");
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        } else {
+            showToast("Sai tên đăng nhập hoặc mật khẩu!");
+        }
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
