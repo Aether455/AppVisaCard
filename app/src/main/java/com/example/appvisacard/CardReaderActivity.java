@@ -201,9 +201,9 @@ public class CardReaderActivity extends AppCompatActivity {
 
                         CardDatabaseHelper cardDbHelper = new CardDatabaseHelper(CardReaderActivity.this);
 
-                        if (!cardDbHelper.isCardExists(cardNumber)) {
+                        if (!cardDbHelper.isCardExists(cardNumber, currentUserId)) {
                             boolean inserted = cardDbHelper.insertCard(cardNumber, formattedDate,holderName,currentUserId);
-                            Log.d("CARD_INSERT", "Kết quả lưu thẻ: " + inserted);
+                            Log.d("CARD_INSERT", "Kết quả lưu thẻ: " + inserted+ " userId: "+currentUserId);
                             if (inserted) {
                                 Toast.makeText(CardReaderActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(CardReaderActivity.this, HomeActivity.class);

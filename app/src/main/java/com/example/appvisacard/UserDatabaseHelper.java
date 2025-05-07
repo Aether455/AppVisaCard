@@ -29,11 +29,13 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE cards (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "card_number TEXT UNIQUE, " +
+                "card_number TEXT, " +
                 "expire_date TEXT, " +
                 "card_holder TEXT, " +
                 "user_id INTEGER, " +
-                "FOREIGN KEY(user_id) REFERENCES users(id))");
+                "FOREIGN KEY(user_id) REFERENCES users(id), " +
+                "UNIQUE(card_number, user_id))"); // Fix chuẩn
+
     }
 
     @Override

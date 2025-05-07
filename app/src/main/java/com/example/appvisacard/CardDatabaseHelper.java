@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.appvisacard.model.CardModel;
 
@@ -32,6 +33,7 @@ public class CardDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
     public boolean insertCard(String cardNumber, String expireDate, String cardHolder, int userId) {
+        Log.d("CARD_INSERT_DB", "Kết quả lưu thẻ: " + " userId: "+userId);
         if (userId == -1) return false;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -42,6 +44,7 @@ public class CardDatabaseHelper extends SQLiteOpenHelper {
         values.put("user_id", userId);
 
         long result = db.insertWithOnConflict("cards", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("CARD_INSERT_DB2", "Kết quả lưu thẻ: " + result);
         return result != -1;
     }
 
@@ -69,9 +72,12 @@ public class CardDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("cards", "id=?", new String[]{String.valueOf(id)});
     }
-    public boolean isCardExists(String cardNumber) {
+    public boolean isCardExists(String cardNumber, int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT 1 FROM cards WHERE card_number = ?", new String[]{cardNumber});
+        Cursor cursor = db.rawQuery(
+                "SELECT 1 FROM cards WHERE card_number = ? AND user_id = ?",
+                new String[]{cardNumber, String.valueOf(userId)}
+        );
         boolean exists = (cursor != null && cursor.moveToFirst());
         if (cursor != null) cursor.close();
         return exists;
