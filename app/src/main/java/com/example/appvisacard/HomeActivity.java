@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     List<CardModel> cardList;
     List<String> displayList;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
 
 
     @Override
@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
         for (CardModel c : cardList) {
             displayList.add("Chủ thẻ: " + c.getCardHolder()
                     + "\nSố thẻ: " + c.getCardNumber()
-                    + "\nHSD: " + dateFormat.format(c.getExpireDate()));
+                    + "\nHSD: " + c.getExpireDate());
         }
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayList);
         cardListView.setAdapter(adapter);

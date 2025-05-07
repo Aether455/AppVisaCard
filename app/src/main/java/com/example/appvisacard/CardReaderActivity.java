@@ -18,6 +18,7 @@ import com.github.devnied.emvnfccard.model.EmvCard;
 import com.github.devnied.emvnfccard.parser.EmvTemplate;
 import com.github.devnied.emvnfccard.parser.IProvider;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
@@ -182,6 +183,8 @@ public class CardReaderActivity extends AppCompatActivity {
                         Log.d("CARD_INFO", card.toString());
                         String cardNumber = card.getCardNumber();
                         Date expireDate = card.getExpireDate();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        String formattedDate = dateFormat.format(expireDate);
                         String holderName = (card.getHolderFirstname() != null ? card.getHolderFirstname() : "") + " " +
                                 (card.getHolderLastname() != null ? card.getHolderLastname() : "");
 
@@ -199,7 +202,7 @@ public class CardReaderActivity extends AppCompatActivity {
                         CardDatabaseHelper cardDbHelper = new CardDatabaseHelper(CardReaderActivity.this);
 
                         if (!cardDbHelper.isCardExists(cardNumber)) {
-                            boolean inserted = cardDbHelper.insertCard(cardNumber, String.valueOf(expireDate),holderName,currentUserId);
+                            boolean inserted = cardDbHelper.insertCard(cardNumber, formattedDate,holderName,currentUserId);
                             Log.d("CARD_INSERT", "Kết quả lưu thẻ: " + inserted);
                             if (inserted) {
                                 Toast.makeText(CardReaderActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
